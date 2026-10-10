@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Changelog & Updates — CartShield: Checkout Rules</title>
+  <meta name="description" content="Official release notes, feature updates, and version history for CartShield: Checkout Rules & Validation app.">
+  <link rel="icon" type="image/jpeg" href="assets/app-icon.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          colors: { brand: { 500: '#10b981', 600: '#059669' } }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans antialiased min-h-screen flex flex-col justify-between">
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 font-bold text-white hover:text-emerald-400 transition">
+        <img src="assets/app-icon.jpg" alt="CartShield Logo" class="w-8 h-8 rounded-lg object-cover">
+        <span>CartShield</span>
+      </a>
+      <nav class="flex items-center gap-6 text-sm font-medium text-slate-400">
+        <a href="docs.html" class="hover:text-white transition">Documentation</a>
+        <a href="tutorial.html" class="hover:text-white transition">Tutorial</a>
+        <a href="faq.html" class="hover:text-white transition">FAQ</a>
+        <a href="support.html" class="hover:text-white transition">Support</a>
+        <a href="privacy.html" class="hover:text-white transition">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-6 py-16 flex-1 w-full">
+    <div class="mb-12">
+      <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Version History</span>
+      <h1 class="text-4xl font-extrabold text-white tracking-tight mt-3 mb-4">CartShield Changelog</h1>
+      <p class="text-slate-400 text-lg">Follow the latest feature releases, performance optimizations, and updates.</p>
+    </div>
+
+    <!-- Timeline -->
+    <div class="space-y-8 relative before:absolute before:inset-0 before:left-5 before:w-0.5 before:bg-slate-800">
+      <!-- v1.0.0 -->
+      <div class="relative pl-12">
+        <div class="absolute left-3.5 -translate-x-1/2 top-1.5 w-4 h-4 rounded-full bg-emerald-500 ring-4 ring-slate-950"></div>
+        <div class="p-8 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-xl">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <span class="text-xl font-bold text-white">v1.0.0 — Production Release</span>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">October 2026</span>
+          </div>
+          <p class="text-slate-300 text-sm mb-4">
+            Official debut of CartShield: Checkout Rules &amp; Validation engine on the Shopify App Store.
+          </p>
+          <ul class="list-disc list-inside space-y-2 text-sm text-slate-300">
+            <li><strong>Shopify Functions Validation:</strong> Built natively on <code class="text-emerald-400">purchase.validation.run</code> for sub-5ms WebAssembly execution at checkout submission.</li>
+            <li><strong>PO Box &amp; Locker Guard:</strong> Automatic regex pattern matching for USPS PO Boxes, APO/FPO bases, and private locker hubs.</li>
+            <li><strong>Add-on / Sample Protection:</strong> Prevent sample kits or heavily discounted promotional items from being ordered alone.</li>
+            <li><strong>B2B Wholesale Step Multiples:</strong> Enforce master carton / case quantity multiples on designated product tags or collections.</li>
+            <li><strong>Minimum &amp; Maximum Spend Limits:</strong> Enforce checkout thresholds for clearance or special category goods.</li>
+            <li><strong>Polaris 12 Merchant Dashboard:</strong> Intuitive rule management dashboard built with Shopify Polaris design standards.</li>
+            <li><strong>Shop Metafields Cache:</strong> Sync rule definitions into shop metafields for zero-network-latency validation.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-slate-950 py-8">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div>&copy; 2026 ModApps Development. All rights reserved.</div>
+      <div class="flex gap-4">
+        <a href="index.html" class="hover:text-slate-300 transition">Home</a>
+        <a href="docs.html" class="hover:text-slate-300 transition">Docs</a>
+        <a href="tutorial.html" class="hover:text-slate-300 transition">Tutorial</a>
+        <a href="faq.html" class="hover:text-slate-300 transition">FAQ</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

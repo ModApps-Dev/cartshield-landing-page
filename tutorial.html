@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup Tutorial & Merchant Guide — CartShield: Checkout Rules</title>
+  <meta name="description" content="Step-by-step setup tutorial on how to configure and activate server-side checkout validation rules with CartShield on Shopify.">
+  <link rel="icon" type="image/jpeg" href="assets/app-icon.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          colors: { brand: { 500: '#10b981', 600: '#059669' } }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans antialiased min-h-screen flex flex-col justify-between">
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 font-bold text-white hover:text-emerald-400 transition">
+        <img src="assets/app-icon.jpg" alt="CartShield Logo" class="w-8 h-8 rounded-lg object-cover">
+        <span>CartShield</span>
+      </a>
+      <nav class="flex items-center gap-6 text-sm font-medium text-slate-400">
+        <a href="docs.html" class="hover:text-white transition">Documentation</a>
+        <a href="faq.html" class="hover:text-white transition">FAQ</a>
+        <a href="changelog.html" class="hover:text-white transition">Changelog</a>
+        <a href="support.html" class="hover:text-white transition">Support</a>
+        <a href="privacy.html" class="hover:text-white transition">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-6 py-16 flex-1 w-full">
+    <div class="text-center mb-16">
+      <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Onboarding & Setup</span>
+      <h1 class="text-4xl font-extrabold text-white tracking-tight mt-3 mb-4">CartShield Setup Tutorial</h1>
+      <p class="text-slate-400 max-w-2xl mx-auto">Configure your first server-side checkout rule in less than 3 minutes. Follow this visual walkthrough.</p>
+    </div>
+
+    <!-- Steps -->
+    <div class="space-y-12">
+      <!-- Step 1 -->
+      <div class="p-8 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-xl relative">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 font-extrabold flex items-center justify-center border border-emerald-500/20 text-lg">
+            1
+          </div>
+          <h2 class="text-2xl font-bold text-white">Install CartShield from the Shopify App Store</h2>
+        </div>
+        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+          Click <strong>Install</strong> on the Shopify App Store listing. Shopify will redirect you to your admin dashboard to approve the permissions. CartShield requires read access to your products and checkout validation scopes.
+        </p>
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-400 font-mono">
+          ✓ Permissions: Read Products, Read Orders, Write App Metafields, Checkout Validation Function
+        </div>
+      </div>
+
+      <!-- Step 2 -->
+      <div class="p-8 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-xl relative">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 font-extrabold flex items-center justify-center border border-emerald-500/20 text-lg">
+            2
+          </div>
+          <h2 class="text-2xl font-bold text-white">Create Your First Validation Rule</h2>
+        </div>
+        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+          Inside the CartShield Polaris dashboard, click <strong>Create Rule</strong>. Choose from one of the battle-tested templates:
+        </p>
+        <ul class="list-disc list-inside space-y-2 text-sm text-slate-300 mb-4">
+          <li><strong>PO Box &amp; Locker Restriction:</strong> Block postal boxes for freight or oversized products.</li>
+          <li><strong>Add-on / Sample Protection:</strong> Prevent customers from ordering free or discounted samples alone.</li>
+          <li><strong>Wholesale Case Multiples:</strong> Enforce B2B ordering in case multiples (e.g. 6, 12, or 24).</li>
+          <li><strong>Minimum / Maximum Spend:</strong> Enforce spending limits for specific collections or clearance items.</li>
+        </ul>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          Provide your custom customer-facing error message (e.g. <em>"Heavy items cannot ship to PO Boxes. Please enter a physical street address."</em>) and click <strong>Save Rule</strong>.
+        </p>
+      </div>
+
+      <!-- Step 3 -->
+      <div class="p-8 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-xl relative">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 font-extrabold flex items-center justify-center border border-emerald-500/20 text-lg">
+            3
+          </div>
+          <h2 class="text-2xl font-bold text-white">Activate Rule in Shopify Checkout Settings</h2>
+        </div>
+        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+          Shopify checkout functions require explicit merchant activation in your Checkout settings to protect merchant control:
+        </p>
+        <ol class="list-decimal list-inside space-y-2 text-sm text-slate-300 mb-4">
+          <li>In your Shopify Admin, click <strong>Settings</strong> (bottom left) &rarr; <strong>Checkout</strong>.</li>
+          <li>Scroll down to the <strong>Checkout Rules</strong> section.</li>
+          <li>Locate <strong>CartShield: Validation Rule</strong> and click <strong>Turn on</strong>.</li>
+          <li>Click <strong>Save</strong> in the top right corner.</li>
+        </ol>
+        <div class="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-xs">
+          💡 <strong>Pro Tip:</strong> Once turned on in Settings, all rules created and enabled in your CartShield dashboard will execute automatically at checkout submission.
+        </div>
+      </div>
+
+      <!-- Step 4 -->
+      <div class="p-8 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-xl relative">
+        <div class="flex items-center gap-4 mb-4">
+          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 font-extrabold flex items-center justify-center border border-emerald-500/20 text-lg">
+            4
+          </div>
+          <h2 class="text-2xl font-bold text-white">Test on Storefront or Checkout Simulator</h2>
+        </div>
+        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+          Open an incognito browser window, add an item governed by your rule to the cart, and proceed to checkout:
+        </p>
+        <ul class="list-disc list-inside space-y-2 text-sm text-slate-300">
+          <li>Enter a PO Box address (e.g. <code>PO Box 1234</code>) in the shipping address line.</li>
+          <li>Click <strong>Continue to Shipping / Pay now</strong>.</li>
+          <li>Observe the immediate native error banner preventing payment completion.</li>
+          <li>Replace with a valid physical street address and watch checkout complete seamlessly.</li>
+        </ul>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-slate-950 py-8">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div>&copy; 2026 ModApps Development. All rights reserved.</div>
+      <div class="flex gap-4">
+        <a href="index.html" class="hover:text-slate-300 transition">Home</a>
+        <a href="docs.html" class="hover:text-slate-300 transition">Docs</a>
+        <a href="faq.html" class="hover:text-slate-300 transition">FAQ</a>
+        <a href="support.html" class="hover:text-slate-300 transition">Support</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

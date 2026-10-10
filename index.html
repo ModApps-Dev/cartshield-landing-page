@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CartShield: Checkout Rules & Validation | Shopify Order Protection</title>
+  <meta name="description" content="Enforce un-bypassable checkout validation rules on your Shopify store. Block PO Boxes, protect add-on samples, and enforce wholesale order multiples. Built natively on Shopify Functions.">
+  <link rel="canonical" href="https://shield.modapps.dev">
+  <link rel="icon" type="image/jpeg" href="assets/app-icon.jpg">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://shield.modapps.dev/">
+  <meta property="og:title" content="CartShield: Checkout Rules & Validation">
+  <meta property="og:description" content="Server-side checkout validation rules for Shopify. Eliminate shipping errors, protect samples, and enforce bulk rules.">
+
+  <!-- Fonts & Tailwind -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          colors: {
+            brand: {
+              500: '#10b981',
+              600: '#059669',
+              blue: '#2563eb',
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .card-glass {
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glow-bg {
+      background: radial-gradient(circle at 50% 0%, rgba(16, 185, 129, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+    }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans selection:bg-brand-500 selection:text-white antialiased min-h-screen">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-slate-950/85 backdrop-blur-md border-b border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/app-icon.jpg" alt="CartShield Logo" class="w-10 h-10 rounded-xl shadow-lg shadow-emerald-500/20 object-cover border border-emerald-500/30">
+        <div>
+          <span class="text-xl font-extrabold tracking-tight text-white">CartShield</span>
+          <span class="text-xs px-2 py-0.5 ml-2 font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 rounded-full">Functions Native</span>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-400">
+        <a href="#features" class="hover:text-white transition">Features</a>
+        <a href="#simulator" class="hover:text-white transition">Rule Simulator</a>
+        <a href="#pricing" class="hover:text-white transition">Pricing</a>
+        <a href="tutorial.html" class="hover:text-white transition">Tutorial</a>
+        <a href="docs.html" class="hover:text-white transition">Docs</a>
+        <a href="faq.html" class="hover:text-white transition">FAQ</a>
+        <a href="support.html" class="hover:text-white transition">Support</a>
+      </nav>
+
+      <div>
+        <a href="#pricing" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold text-sm bg-emerald-600 hover:bg-emerald-500 text-white shadow-lg shadow-emerald-600/25 transition">
+          Install CartShield
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="pt-36 pb-20 relative glow-bg overflow-hidden">
+    <div class="max-w-5xl mx-auto px-6 text-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-8">
+        <span>🛡️ Server-Side Checkout Protection</span>
+      </div>
+
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-white leading-tight mb-6">
+        Un-Bypassable Checkout Rules <br>
+        <span class="bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 bg-clip-text text-transparent">
+          That Protect Merchant Margins
+        </span>
+      </h1>
+
+      <p class="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto font-normal leading-relaxed mb-10">
+        Stop shipping errors, sample kit abuse, and PO Box freight penalties before payment completes. Built 100% on native Shopify Functions for sub-5ms edge execution.
+      </p>
+
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="#simulator" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-xl shadow-emerald-600/30 transition flex items-center justify-center gap-2">
+          <span>Test Interactive Rule Simulator</span> &darr;
+        </a>
+        <a href="docs.html" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 transition">
+          View Merchant Manual
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Rule Simulator -->
+  <section id="simulator" class="py-24 border-t border-slate-800/80 bg-slate-900/40">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">Live Simulator</span>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-white mt-4">See How CartShield Intercepts Invalid Orders</h2>
+        <p class="text-slate-400 text-sm mt-3">Select a rule scenario below to experience the native Shopify checkout validation response in real time.</p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <!-- Controls Column -->
+        <div class="lg:col-span-5 card-glass p-8 rounded-2xl border border-slate-800">
+          <h3 class="text-lg font-bold text-white mb-4">Select Validation Scenario:</h3>
+
+          <div class="space-y-3">
+            <button onclick="setScenario('pobox')" id="btn-pobox" class="w-full text-left p-4 rounded-xl border border-emerald-500/40 bg-emerald-500/10 text-white font-semibold transition">
+              📦 PO Box Blocker (Heavy Freight Item)
+            </button>
+            <button onclick="setScenario('addon')" id="btn-addon" class="w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800 text-slate-300 font-semibold transition">
+              🎁 Add-on & Sample Abuse Prevention
+            </button>
+            <button onclick="setScenario('b2b')" id="btn-b2b" class="w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800 text-slate-300 font-semibold transition">
+              🏢 B2B Wholesale Case Multiples (Pack of 6)
+            </button>
+            <button onclick="setScenario('minspend')" id="btn-minspend" class="w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800 text-slate-300 font-semibold transition">
+              💰 Minimum Spend on Clearance Items
+            </button>
+          </div>
+
+          <div class="mt-8 pt-6 border-t border-slate-800">
+            <div class="text-xs font-mono text-emerald-400 flex items-center gap-2">
+              <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+              Execution: cart.checkout.validation (Wasm)
+            </div>
+            <p class="text-xs text-slate-500 mt-2">Zero theme code modification required. Evaluates instantly inside Shopify's secure sandbox.</p>
+          </div>
+        </div>
+
+        <!-- Checkout Preview Display -->
+        <div class="lg:col-span-7 bg-white rounded-2xl p-8 text-slate-900 shadow-2xl border border-slate-200">
+          <div class="flex items-center justify-between border-b pb-4 mb-6">
+            <div class="flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-sm">M</div>
+              <span class="font-bold text-lg">ModStore Official Checkout</span>
+            </div>
+            <span class="text-xs text-slate-500">🔒 256-Bit SSL</span>
+          </div>
+
+          <!-- Dynamic Error Banner -->
+          <div id="sim-banner" class="p-4 rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm font-medium mb-6 flex gap-3 items-start">
+            <span class="text-lg">⚠️</span>
+            <div>
+              <div class="font-bold text-red-800" id="sim-error-title">Freight Delivery Restriction</div>
+              <div class="text-xs text-red-600 mt-1" id="sim-error-desc">Heavy freight items cannot ship to PO Boxes. Please enter a physical street address.</div>
+            </div>
+          </div>
+
+          <!-- Simulated Cart Items -->
+          <div class="bg-slate-50 rounded-xl p-4 border border-slate-100 mb-6">
+            <div class="text-xs font-bold uppercase text-slate-500 mb-3">Cart Contents</div>
+            <div id="sim-items" class="space-y-2 text-sm">
+              <div class="flex justify-between items-center">
+                <span>🏂 Pro Snowboard Freight (Heavy Goods)</span>
+                <span class="font-bold">$729.95</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Address Field -->
+          <div class="mb-6">
+            <label class="block text-xs font-bold text-slate-600 uppercase mb-1">Customer Shipping Address</label>
+            <div id="sim-address" class="p-3 bg-slate-100 rounded-lg text-sm font-mono text-slate-700">
+              PO Box 4829, Springfield, OR 97477
+            </div>
+          </div>
+
+          <button id="sim-cta" class="w-full py-4 rounded-xl font-bold bg-slate-300 text-slate-500 cursor-not-allowed">
+            Complete Order (Blocked by Validation Rule)
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Feature Grid -->
+  <section id="features" class="py-24 border-t border-slate-800/80">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <h2 class="text-xs font-bold text-emerald-400 uppercase tracking-widest">Built for Shopify Functions</h2>
+        <p class="text-3xl md:text-5xl font-extrabold text-white mt-3">Essential Protection Features</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="card-glass p-8 rounded-2xl border border-slate-800">
+          <div class="text-3xl mb-4">📦</div>
+          <h3 class="text-lg font-bold text-white mb-2">PO Box & Freight Blocker</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Detects PO Box, APO/FPO, and postal variants in shipping addresses to prevent courier freight rejections.
+          </p>
+        </div>
+
+        <div class="card-glass p-8 rounded-2xl border border-slate-800">
+          <div class="text-3xl mb-4">🎁</div>
+          <h3 class="text-lg font-bold text-white mb-2">Sample Abuse Shield</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Prevents low-margin samples, warranty add-ons, or gift packaging from checking out without main catalog items.
+          </p>
+        </div>
+
+        <div class="card-glass p-8 rounded-2xl border border-slate-800">
+          <div class="text-3xl mb-4">🏢</div>
+          <h3 class="text-lg font-bold text-white mb-2">B2B Wholesale Steps</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Enforces minimum carton quantities and case multiples (packs of 6 or 12) for tagged B2B wholesale buyers.
+          </p>
+        </div>
+
+        <div class="card-glass p-8 rounded-2xl border border-slate-800">
+          <div class="text-3xl mb-4">⚡</div>
+          <h3 class="text-lg font-bold text-white mb-2">Sub-5ms Execution</h3>
+          <p class="text-sm text-slate-400 leading-relaxed">
+            Compiled to WebAssembly and executed on Shopify's global edge network. Zero external network latency.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Section -->
+  <section id="pricing" class="py-24 border-t border-slate-800/80 bg-slate-900/40">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">Transparent Pricing</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold text-white mt-4">Simple Plans That Scale With Your Store</h2>
+        <p class="text-slate-400 text-sm mt-3">Choose the plan that fits your protection needs. Upgrade or cancel anytime.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- Free Plan -->
+        <div class="card-glass p-8 md:p-10 rounded-2xl border border-slate-800 flex flex-col justify-between hover:border-slate-700 transition">
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="text-2xl font-bold text-white">Free Starter</h3>
+              <span class="text-xs px-2.5 py-1 rounded bg-slate-800 text-slate-400 font-semibold">Starter Tier</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-2">For new stores establishing basic checkout rules</p>
+            <div class="mt-6 mb-8">
+              <span class="text-5xl font-extrabold text-white">$0</span>
+              <span class="text-slate-400 text-sm font-medium">/ month</span>
+            </div>
+            <ul class="space-y-3.5 text-sm text-slate-300">
+              <li class="flex items-center gap-3">
+                <span class="text-emerald-400 font-bold">✓</span> 1 active validation rule
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-emerald-400 font-bold">✓</span> Up to 30 blocked orders per month
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-emerald-400 font-bold">✓</span> PO Box or Add-on protection
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-emerald-400 font-bold">✓</span> Native Shopify Functions execution
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-emerald-400 font-bold">✓</span> Standard email support
+              </li>
+            </ul>
+          </div>
+          <a href="#pricing" class="mt-10 block text-center py-3.5 px-4 rounded-xl font-bold bg-slate-800 hover:bg-slate-700 text-white transition">
+            Install Free
+          </a>
+        </div>
+
+        <!-- Pro Plan -->
+        <div class="card-glass p-8 md:p-10 rounded-2xl border-2 border-emerald-500 relative flex flex-col justify-between shadow-2xl shadow-emerald-500/15">
+          <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 px-4 py-1 bg-emerald-500 text-white text-xs font-extrabold rounded-full uppercase tracking-wider shadow-lg shadow-emerald-500/30">
+            Most Popular &bull; 14-Day Free Trial
+          </div>
+          <div>
+            <div class="flex items-center justify-between">
+              <h3 class="text-2xl font-bold text-white">Pro Growth</h3>
+              <span class="text-xs px-2.5 py-1 rounded bg-emerald-500/15 text-emerald-400 font-semibold border border-emerald-500/30">Complete Suite</span>
+            </div>
+            <p class="text-xs text-slate-400 mt-2">For growing brands seeking comprehensive protection</p>
+            <div class="mt-6 mb-8 flex items-baseline gap-2">
+              <span class="text-5xl font-extrabold text-white">$19.99</span>
+              <span class="text-slate-400 text-sm font-medium">/ month</span>
+              <span class="text-xs text-emerald-400 ml-2 font-medium">(or $190/year)</span>
+            </div>
+            <ul class="space-y-3.5 text-sm text-slate-300">
+              <li class="flex items-center gap-3">
+                <span class="text-emerald-400 font-bold">✓</span> Unlimited active validation rules
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-emerald-400 font-bold">✓</span> All rule types (PO Box, Add-ons, Spend limits)
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-emerald-400 font-bold">✓</span> B2B Wholesale case multiples
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-emerald-400 font-bold">✓</span> Native Shopify Functions execution
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-emerald-400 font-bold">✓</span> Real-time blocked order analytics
+              </li>
+              <li class="flex items-center gap-3">
+                <span class="text-emerald-400 font-bold">✓</span> Priority developer support
+              </li>
+            </ul>
+          </div>
+          <a href="#pricing" class="mt-10 block text-center py-3.5 px-4 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white transition shadow-lg shadow-emerald-600/30">
+            Start 14-Day Free Trial
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-12 text-center text-xs text-slate-500 max-w-lg mx-auto">
+        All charges are billed securely via official Shopify Recurring Application Charges. Cancel anytime directly in your Shopify Admin.
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t border-slate-800/80 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-3">
+        <img src="assets/app-icon.jpg" alt="CartShield Logo" class="w-8 h-8 rounded-lg object-cover">
+        <span class="font-bold text-white">CartShield</span>
+        <span class="text-xs text-slate-500">by ModApps</span>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-6 text-sm text-slate-400">
+        <a href="docs.html" class="hover:text-white transition">Documentation</a>
+        <a href="tutorial.html" class="hover:text-white transition">Tutorial</a>
+        <a href="faq.html" class="hover:text-white transition">FAQ</a>
+        <a href="changelog.html" class="hover:text-white transition">Changelog</a>
+        <a href="privacy.html" class="hover:text-white transition">Privacy Policy</a>
+        <a href="support.html" class="hover:text-white transition">Support</a>
+      </div>
+
+      <div class="text-xs text-slate-500">
+        &copy; 2026 ModApps Development. All rights reserved. Built for Shopify.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Simulator Script -->
+  <script>
+    const scenarios = {
+      pobox: {
+        title: "Freight Delivery Restriction",
+        desc: "Heavy freight items cannot ship to PO Boxes. Please enter a physical street address.",
+        items: '<div class="flex justify-between items-center"><span>🏂 Pro Snowboard Freight (Heavy Goods)</span><span class="font-bold">$729.95</span></div>',
+        address: "PO Box 4829, Springfield, OR 97477",
+        btn: "btn-pobox"
+      },
+      addon: {
+        title: "Sample Kit Purchase Constraint",
+        desc: "Sample wax kits can only be ordered when purchasing at least one main catalog item.",
+        items: '<div class="flex justify-between items-center"><span>🎁 Tuning Wax Sample Kit (Add-on)</span><span class="font-bold">$5.00</span></div>',
+        address: "742 Evergreen Terrace, Springfield, OR 97477",
+        btn: "btn-addon"
+      },
+      b2b: {
+        title: "Wholesale Carton Multiple Required",
+        desc: "Wholesale accounts must order in case quantities of 6 units. Your current total is 4 units.",
+        items: '<div class="flex justify-between items-center"><span>📦 Wholesale Snowboard Wax (Qty: 4)</span><span class="font-bold">$80.00</span></div>',
+        address: "Wholesale Logistics Hub, Portland, OR 97201",
+        btn: "btn-b2b"
+      },
+      minspend: {
+        title: "Minimum Collection Spend Required",
+        desc: "A minimum subtotal of $50.00 is required for clearance catalog items. Current subtotal: $25.00.",
+        items: '<div class="flex justify-between items-center"><span>🏷️ Clearance Beanie (Subtotal: $25.00)</span><span class="font-bold">$25.00</span></div>',
+        address: "123 Main Street, Eugene, OR 97401",
+        btn: "btn-minspend"
+      }
+    };
+
+    function setScenario(key) {
+      const s = scenarios[key];
+      document.getElementById('sim-error-title').innerText = s.title;
+      document.getElementById('sim-error-desc').innerText = s.desc;
+      document.getElementById('sim-items').innerHTML = s.items;
+      document.getElementById('sim-address').innerText = s.address;
+
+      ['btn-pobox', 'btn-addon', 'btn-b2b', 'btn-minspend'].forEach(id => {
+        const el = document.getElementById(id);
+        if (id === s.btn) {
+          el.className = "w-full text-left p-4 rounded-xl border border-emerald-500/40 bg-emerald-500/10 text-white font-semibold transition";
+        } else {
+          el.className = "w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900/60 hover:bg-slate-800 text-slate-300 font-semibold transition";
+        }
+      });
+    }
+  </script>
+</body>
+</html>

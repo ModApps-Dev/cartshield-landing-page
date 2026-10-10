@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frequently Asked Questions — CartShield: Checkout Rules</title>
+  <meta name="description" content="Answers to common questions regarding CartShield checkout rules, Shopify Functions WebAssembly runtime, Shop Pay compatibility, and plan pricing.">
+  <link rel="icon" type="image/jpeg" href="assets/app-icon.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          colors: { brand: { 500: '#10b981', 600: '#059669' } }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans antialiased min-h-screen flex flex-col justify-between">
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 font-bold text-white hover:text-emerald-400 transition">
+        <img src="assets/app-icon.jpg" alt="CartShield Logo" class="w-8 h-8 rounded-lg object-cover">
+        <span>CartShield</span>
+      </a>
+      <nav class="flex items-center gap-6 text-sm font-medium text-slate-400">
+        <a href="docs.html" class="hover:text-white transition">Documentation</a>
+        <a href="tutorial.html" class="hover:text-white transition">Tutorial</a>
+        <a href="changelog.html" class="hover:text-white transition">Changelog</a>
+        <a href="support.html" class="hover:text-white transition">Support</a>
+        <a href="privacy.html" class="hover:text-white transition">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-6 py-16 flex-1 w-full">
+    <div class="text-center mb-16">
+      <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Knowledge Base</span>
+      <h1 class="text-4xl font-extrabold text-white tracking-tight mt-3 mb-4">Frequently Asked Questions</h1>
+      <p class="text-slate-400 max-w-2xl mx-auto">Everything you need to know about server-side validation rules, Shopify Functions, and order protection.</p>
+    </div>
+
+    <div class="space-y-6">
+      <!-- Q1 -->
+      <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-lg">
+        <h3 class="text-lg font-bold text-white mb-2">How does CartShield differ from old theme script apps?</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          Legacy apps injected JavaScript into your theme (liquid files or cart drawers). Savvy buyers could easily bypass them by going directly to <code class="text-emerald-400">/checkout</code> or using express buttons like Shop Pay, Apple Pay, or Google Pay. CartShield runs 100% on native <strong>Shopify Functions (<code class="text-emerald-400">purchase.validation.run</code>)</strong> directly on Shopify's checkout servers. There is zero theme code, zero script tags, and zero possibility of bypassing the validation.
+        </p>
+      </div>
+
+      <!-- Q2 -->
+      <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-lg">
+        <h3 class="text-lg font-bold text-white mb-2">Does CartShield affect checkout page speed or Core Web Vitals?</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          No! CartShield compiles to WebAssembly (Wasm) and runs inside Shopify's global edge sandbox in under 5 milliseconds. It executes synchronously during checkout submission without making external HTTP API calls. Your checkout stays lightning fast with zero impact on conversion rates.
+        </p>
+      </div>
+
+      <!-- Q3 -->
+      <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-lg">
+        <h3 class="text-lg font-bold text-white mb-2">Can I block PO Boxes only for specific heavy freight items?</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          Yes. CartShield allows condition scoping: you can choose to apply PO Box restrictions store-wide, or restrict it only when the customer's cart contains products from specific collections (e.g. "Heavy Freight", "Hazardous Materials", "Oversized Furniture").
+        </p>
+      </div>
+
+      <!-- Q4 -->
+      <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-lg">
+        <h3 class="text-lg font-bold text-white mb-2">What is the "Add-on Sample Dependency" rule?</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          Many merchants offer $1-$5 sample kits, promotional swag, or replacement parts intended only as add-ons to real orders. Without validation, customers frequently order only the subsidized sample, costing the merchant high shipping fees. CartShield checks whether the cart contains required qualifying products; if not, checkout is blocked with an instructional message.
+        </p>
+      </div>
+
+      <!-- Q5 -->
+      <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-lg">
+        <h3 class="text-lg font-bold text-white mb-2">How does B2B / Wholesale Pack Multiple validation work?</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          If you ship wholesale goods in cases of 6, 12, or 24, shipping loose units ruins warehouse packaging efficiency. You configure a step multiple (e.g., multiple of 6). CartShield divides the item quantity by 6; if there is a remainder, it halts checkout and notifies the buyer: <em>"Wholesale orders must be in case multiples of 6. Current quantity: 4."</em>
+        </p>
+      </div>
+
+      <!-- Q6 -->
+      <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-lg">
+        <h3 class="text-lg font-bold text-white mb-2">Where does the error message appear to the customer?</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          Depending on the rule type, CartShield can anchor errors directly to the relevant input field (such as the Shipping Address line for PO Box violations) or display a prominent checkout banner at the top of the payment review step for cart-level issues (such as minimum spend thresholds).
+        </p>
+      </div>
+
+      <!-- Q7 -->
+      <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-lg">
+        <h3 class="text-lg font-bold text-white mb-2">Is CartShield compatible with non-Shopify Plus stores?</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          Shopify Checkout Validation Functions are supported across modern Shopify checkouts via Checkout Extensibility. If your plan supports Checkout Extensibility rules in your Shopify Admin (Settings &rarr; Checkout), CartShield is 100% plug-and-play.
+        </p>
+      </div>
+
+      <!-- Q8 -->
+      <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-lg">
+        <h3 class="text-lg font-bold text-white mb-2">What happens if I uninstall the app?</h3>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          Because CartShield injects zero scripts into your theme, uninstalling the app leaves zero leftover code or theme corruption. Shopify automatically deactivates the function extension upon uninstall.
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-slate-950 py-8">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div>&copy; 2026 ModApps Development. All rights reserved.</div>
+      <div class="flex gap-4">
+        <a href="index.html" class="hover:text-slate-300 transition">Home</a>
+        <a href="docs.html" class="hover:text-slate-300 transition">Docs</a>
+        <a href="tutorial.html" class="hover:text-slate-300 transition">Tutorial</a>
+        <a href="support.html" class="hover:text-slate-300 transition">Support</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

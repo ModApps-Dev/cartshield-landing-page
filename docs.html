@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merchant Documentation & Rule Reference — CartShield</title>
+  <meta name="description" content="Complete documentation and technical reference for CartShield: Checkout Rules & Validation. Rule architecture, regex specifications, and edge execution.">
+  <link rel="icon" type="image/jpeg" href="assets/app-icon.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          colors: { brand: { 500: '#10b981', 600: '#059669' } }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans antialiased min-h-screen flex flex-col justify-between">
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 font-bold text-white hover:text-emerald-400 transition">
+        <img src="assets/app-icon.jpg" alt="CartShield Logo" class="w-8 h-8 rounded-lg object-cover">
+        <span>CartShield</span>
+      </a>
+      <nav class="flex items-center gap-6 text-sm font-medium text-slate-400">
+        <a href="tutorial.html" class="hover:text-white transition">Tutorial</a>
+        <a href="faq.html" class="hover:text-white transition">FAQ</a>
+        <a href="changelog.html" class="hover:text-white transition">Changelog</a>
+        <a href="support.html" class="hover:text-white transition">Support</a>
+        <a href="privacy.html" class="hover:text-white transition">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-6 py-16 flex-1 w-full">
+    <div class="mb-12">
+      <span class="text-xs font-semibold px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">Merchant Manual</span>
+      <h1 class="text-4xl font-extrabold text-white tracking-tight mt-3 mb-4">CartShield Documentation</h1>
+      <p class="text-slate-400 text-lg">Detailed guide to rule configurations, server-side function architecture, and error handling.</p>
+    </div>
+
+    <!-- Content Sections -->
+    <div class="space-y-12">
+      <!-- Section 1 -->
+      <section class="p-8 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-xl">
+        <h2 class="text-2xl font-bold text-white mb-4">1. Technical Architecture & Shopify Functions</h2>
+        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+          CartShield uses Shopify's modern <strong>Checkout Validation API</strong> (<code class="text-emerald-400">purchase.validation.run</code>). Unlike legacy script tag apps, checkout validation runs as a WebAssembly (Wasm) binary inside Shopify's core checkout pipeline.
+        </p>
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 space-y-2 text-xs font-mono text-slate-300">
+          <div><span class="text-emerald-400">⚡ Execution Speed:</span> &lt; 5 milliseconds (synchronous edge execution)</div>
+          <div><span class="text-blue-400">🔒 Security:</span> Un-bypassable by Shop Pay, Apple Pay, PayPal, or Google Pay</div>
+          <div><span class="text-purple-400">📦 Zero Bloat:</span> 0 KB added to store theme; 0 script tags injected</div>
+        </div>
+      </section>
+
+      <!-- Section 2 -->
+      <section class="p-8 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-xl">
+        <h2 class="text-2xl font-bold text-white mb-4">2. Core Validation Rule Engines</h2>
+        <div class="space-y-6">
+          <!-- Rule 1 -->
+          <div>
+            <h3 class="text-lg font-bold text-emerald-400 mb-1">A. PO Box &amp; Postal Locker Restriction</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-2">
+              Interprets delivery address lines (Address 1, Address 2) using comprehensive regular expression patterns targeting variations of Post Office boxes, Army Post Offices (APO/FPO/DPO), and private parcel lockers.
+            </p>
+            <div class="p-3 rounded-lg bg-slate-950 border border-slate-800 text-xs font-mono text-slate-400">
+              Pattern Match: \b(P\.?O\.?\s*Box|Post\s*Office\s*Box|P\s*O\s*B|Box\s*[0-9]+|Locker|APO|FPO)\b/i
+            </div>
+          </div>
+
+          <!-- Rule 2 -->
+          <div>
+            <h3 class="text-lg font-bold text-emerald-400 mb-1">B. Add-on &amp; Sample Kit Dependency</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-2">
+              Protects sample items, swatch kits, or deeply discounted promotional gifts. Validates that if a restricted SKU is in the cart, at least one qualifying catalog item from an allowed collection is also present.
+            </p>
+          </div>
+
+          <!-- Rule 3 -->
+          <div>
+            <h3 class="text-lg font-bold text-emerald-400 mb-1">C. B2B / Wholesale Case Multiples</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-2">
+              Guarantees wholesale orders conform to factory master carton counts. Evaluates the line item quantity with modulo arithmetic (<code class="text-emerald-400">qty % step === 0</code>) and rejects arbitrary quantities.
+            </p>
+          </div>
+
+          <!-- Rule 4 -->
+          <div>
+            <h3 class="text-lg font-bold text-emerald-400 mb-1">D. Collection Minimum / Maximum Spend</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-2">
+              Enforces subtotal thresholds on specific clearance, refrigerated, or export-only collections before allowing the order to complete.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Section 3 -->
+      <section class="p-8 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-xl">
+        <h2 class="text-2xl font-bold text-white mb-4">3. Error Placement &amp; Localization</h2>
+        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+          CartShield delivers errors in two distinct targets depending on rule context:
+        </p>
+        <ul class="list-disc list-inside space-y-2 text-sm text-slate-300 mb-4">
+          <li><strong>Target Field Error (<code class="text-emerald-400">$.cart.deliveryGroups[0].deliveryAddress.address1</code>):</strong> Highlighted directly under the buyer's shipping address field with red contextual feedback.</li>
+          <li><strong>Page-Level Banner Error:</strong> Prominently displayed at the top of the checkout form for cart-level quantity or spending conditions.</li>
+        </ul>
+        <p class="text-slate-300 text-sm leading-relaxed">
+          Error copy is fully customizable in the CartShield admin and supports emoji indicators for clear customer guidance.
+        </p>
+      </section>
+
+      <!-- Section 4 -->
+      <section class="p-8 rounded-2xl border border-slate-800 bg-slate-900/60 shadow-xl">
+        <h2 class="text-2xl font-bold text-white mb-4">4. Shopify Metafield Storage Schema</h2>
+        <p class="text-slate-300 text-sm leading-relaxed mb-4">
+          To ensure sub-5ms evaluation without database roundtrips during checkout, all active rules are synced to the shop metafield:
+        </p>
+        <div class="p-4 rounded-xl bg-slate-950 border border-slate-800 text-xs font-mono text-emerald-300">
+          Namespace: $app:cartshield_rules<br>
+          Key: rules_config<br>
+          Type: json
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-slate-950 py-8">
+    <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div>&copy; 2026 ModApps Development. All rights reserved.</div>
+      <div class="flex gap-4">
+        <a href="index.html" class="hover:text-slate-300 transition">Home</a>
+        <a href="tutorial.html" class="hover:text-slate-300 transition">Tutorial</a>
+        <a href="faq.html" class="hover:text-slate-300 transition">FAQ</a>
+        <a href="support.html" class="hover:text-slate-300 transition">Support</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy — CartShield: Checkout Rules & Validation</title>
+  <meta name="description" content="Privacy Policy for CartShield: Checkout Rules & Validation app by ModApps. Compliant with GDPR, CCPA, and Shopify App Store security guidelines.">
+  <link rel="icon" type="image/jpeg" href="assets/app-icon.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: { sans: ['"Plus Jakarta Sans"', 'sans-serif'] },
+          colors: { brand: { 500: '#10b981', 600: '#059669' } }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-950 text-slate-200 font-sans antialiased min-h-screen flex flex-col justify-between">
+  <!-- Header -->
+  <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-6 h-20 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 font-bold text-white hover:text-emerald-400 transition">
+        <img src="assets/app-icon.jpg" alt="CartShield Logo" class="w-8 h-8 rounded-lg object-cover">
+        <span>CartShield</span>
+      </a>
+      <span class="text-xs font-semibold px-2.5 py-1 rounded bg-slate-800 text-slate-400">Shopify App Privacy Policy</span>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="max-w-4xl mx-auto px-6 py-16 flex-1 w-full">
+    <h1 class="text-4xl font-extrabold text-white tracking-tight mb-2">Privacy Policy</h1>
+    <p class="text-sm text-slate-400 mb-12">Last Updated: October 10, 2026 • Effective Date: October 10, 2026</p>
+
+    <div class="space-y-10 text-slate-300 text-base leading-relaxed">
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-3">1. Introduction & Overview</h2>
+        <p>CartShield: Checkout Rules &amp; Validation ("CartShield", "we", "our", or "the App") is developed and operated by ModApps Development ("ModApps-Dev"). This Privacy Policy describes how we handle store, merchant, and customer data when you install and use the CartShield app on your Shopify store.</p>
+        <p class="mt-2">CartShield is built natively upon Shopify Functions (<code class="text-emerald-400">purchase.validation.run</code>). Validation rules execute server-side in Shopify's WebAssembly sandbox. This zero-bloat architecture ensures our app never collects, stores, or sells personally identifiable customer information.</p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-3">2. Information We Collect</h2>
+        <p>We collect and process only the minimal store configuration data necessary to execute validation rules and provide merchant dashboard functionality:</p>
+        <ul class="list-disc list-inside mt-3 space-y-2 text-slate-300">
+          <li><strong>Merchant Store Identifiers:</strong> Store myshopify domain (e.g. <code>store.myshopify.com</code>), access token (securely encrypted), and store owner contact email.</li>
+          <li><strong>Rule Configurations:</strong> Validation rule definitions (such as PO Box regex patterns, target collections, SKU dependencies, minimum order amounts, and custom error messages) saved to Shopify Metafields.</li>
+          <li><strong>Aggregated Block Telemetry:</strong> Anonymized counts of validation events (e.g. total rules evaluated, total invalid orders intercepted) displayed on the merchant dashboard.</li>
+        </ul>
+        <div class="mt-4 p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-sm">
+          <strong>Privacy Guarantee:</strong> CartShield does NOT store customer credit card numbers, payment tokens, phone numbers, or residential addresses on any third-party external server. Address evaluations occur ephemerally in Shopify's memory during the checkout validation function run.
+        </div>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-3">3. How Information Is Used</h2>
+        <p>We use collected data solely for the following legitimate business purposes:</p>
+        <ul class="list-disc list-inside mt-2 space-y-1 text-slate-300">
+          <li>Synchronizing merchant validation rules to store metafields for sub-5ms edge evaluation.</li>
+          <li>Displaying rule management and validation logs in the Shopify Admin.</li>
+          <li>Managing billing status and subscription tiers via Shopify's Recurring Application Charges API.</li>
+          <li>Providing prompt merchant support and troubleshooting rule configurations.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-3">4. Shopify Webhooks & Data Deletion Compliance</h2>
+        <p>In accordance with Shopify's Mandatory Webhooks and Data Privacy standards, CartShield implements and responds automatically to all GDPR compliance endpoints:</p>
+        <ul class="list-disc list-inside mt-2 space-y-1 text-slate-300">
+          <li><code>customers/data_request</code>: Generates reports if any customer-linked record exists (CartShield holds zero customer records).</li>
+          <li><code>customers/redact</code>: Purges any customer references within 48 hours.</li>
+          <li><code>shop/redact</code>: Immediately deletes all store sessions, rule records, and cached configs within 48 hours of app uninstall.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-3">5. Data Retention & Security</h2>
+        <p>All database connections are secured via TLS 1.3 encryption in transit and AES-256 at rest. Rule records are retained only for the duration of your app installation. Upon app uninstallation, all merchant configuration data is scheduled for permanent deletion within 48 hours.</p>
+      </section>
+
+      <section>
+        <h2 class="text-2xl font-bold text-white mb-3">6. Contact Us</h2>
+        <p>If you have any questions or inquiries regarding our privacy practices or data handling, please contact our privacy compliance team:</p>
+        <p class="mt-2 text-emerald-400 font-semibold">Email: <a href="mailto:support@modapps.dev" class="underline hover:text-emerald-300">support@modapps.dev</a></p>
+        <p class="text-slate-400 text-sm mt-1">ModApps Development • Amman &amp; Global Operations</p>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-800 bg-slate-950 py-8">
+    <div class="max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+      <div>&copy; 2026 ModApps Development. All rights reserved.</div>
+      <div class="flex gap-4">
+        <a href="index.html" class="hover:text-slate-300 transition">Home</a>
+        <a href="docs.html" class="hover:text-slate-300 transition">Docs</a>
+        <a href="faq.html" class="hover:text-slate-300 transition">FAQ</a>
+        <a href="support.html" class="hover:text-slate-300 transition">Support</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
