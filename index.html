@@ -143,9 +143,100 @@
         <a href="#simulator" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-xl shadow-emerald-600/30 transition flex items-center justify-center gap-2">
           <span>Test Interactive Rule Simulator</span> &darr;
         </a>
-        <a href="docs.html" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 transition">
-          View Merchant Manual
+        <a href="https://youtu.be/G3MmStaDQTo" target="_blank" rel="noreferrer" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 transition flex items-center justify-center gap-2">
+          <span>▶ Watch 28s Walkthrough</span>
         </a>
+      </div>
+
+      <!-- YouTube Video Embed -->
+      <div class="mt-16 max-w-4xl mx-auto rounded-2xl overflow-hidden border border-slate-800 shadow-2xl shadow-emerald-500/10 bg-slate-900/60 p-2 sm:p-4">
+        <div class="relative w-full" style="padding-bottom: 56.25%;">
+          <iframe 
+            class="absolute top-0 left-0 w-full h-full rounded-xl"
+            src="https://www.youtube-nocookie.com/embed/G3MmStaDQTo?rel=0" 
+            title="CartShield: Checkout Rules Walkthrough" 
+            frameborder="0" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="flex items-center justify-between px-4 py-3 text-xs text-slate-400">
+          <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Official 1080p Walkthrough Video</span>
+          <span>⚡ Sub-5ms WebAssembly Engine</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architectural Advantage: Server-Side vs. Client-Side -->
+  <section class="py-20 border-t border-slate-800/80 bg-slate-950">
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="text-center max-w-3xl mx-auto mb-16">
+        <span class="text-xs font-bold text-emerald-400 uppercase tracking-widest px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20">Architectural Security</span>
+        <h2 class="text-3xl md:text-5xl font-extrabold text-white mt-4">Why Server-Side Beats Client-Side Scripts</h2>
+        <p class="text-slate-400 text-base mt-3">
+          Most checkout apps rely on fragile frontend JavaScript. Here is why CartShield's WebAssembly backend is completely un-bypassable.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Legacy Flaw Card -->
+        <div class="p-8 rounded-2xl border border-red-500/30 bg-red-950/10 flex flex-col justify-between">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-2xl">❌</span>
+              <h3 class="text-xl font-bold text-red-400">Legacy Frontend Apps (Easily Bypassed)</h3>
+            </div>
+            <ul class="space-y-4 text-sm text-slate-300">
+              <li class="flex items-start gap-3">
+                <span class="text-red-400 font-bold mt-0.5">✕</span>
+                <div><strong>Bypassed via Express Checkouts:</strong> Customers clicking "Buy with Shop Pay", Apple Pay, Google Pay, or PayPal skip the cart page completely, bypassing all frontend checks.</div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-red-400 font-bold mt-0.5">✕</span>
+                <div><strong>Disabled in Browser DevTools:</strong> Anyone can inspect the DOM, disable JavaScript, or submit direct form POSTs to place blocked orders.</div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-red-400 font-bold mt-0.5">✕</span>
+                <div><strong>Theme Bloat & Slowdown:</strong> Injects heavy script tags into your storefront, destroying Google Lighthouse scores and Core Web Vitals.</div>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-8 p-3 rounded-xl bg-red-950/30 border border-red-500/20 text-xs text-red-300 font-semibold text-center">
+            Result: Continued courier penalty chargebacks & margin leaks
+          </div>
+        </div>
+
+        <!-- CartShield Advantage Card -->
+        <div class="p-8 rounded-2xl border border-emerald-500/50 bg-emerald-950/20 flex flex-col justify-between shadow-xl shadow-emerald-500/10">
+          <div>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="text-2xl">🛡️</span>
+              <h3 class="text-xl font-bold text-emerald-400">CartShield Native Shopify Functions</h3>
+            </div>
+            <ul class="space-y-4 text-sm text-slate-200">
+              <li class="flex items-start gap-3">
+                <span class="text-emerald-400 font-bold mt-0.5">✓</span>
+                <div><strong>100% Server-Side & Un-Bypassable:</strong> Executes directly inside Shopify's checkout pipeline. Shopify refuses to process payment or create orders until the WebAssembly function passes.</div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-emerald-400 font-bold mt-0.5">✓</span>
+                <div><strong>Enforced on ALL Payment Methods:</strong> Works flawlessly across Shop Pay, Apple Pay, Google Pay, PayPal, and standard 1-page checkout.</div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-emerald-400 font-bold mt-0.5">✓</span>
+                <div><strong>Zero Theme Code & Zero Bloat:</strong> Injects 0 bytes of JavaScript into your store theme. 100% theme speed score preserved.</div>
+              </li>
+              <li class="flex items-start gap-3">
+                <span class="text-emerald-400 font-bold mt-0.5">✓</span>
+                <div><strong>Sub-5ms Edge WebAssembly Speed:</strong> Evaluated in 1.8ms–2.4ms across Shopify's global edge infrastructure.</div>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-8 p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-xs text-emerald-300 font-bold text-center">
+            Result: 100% guaranteed checkout margin defense & zero chargebacks
+          </div>
+        </div>
       </div>
     </div>
   </section>
