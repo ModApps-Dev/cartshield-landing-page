@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shield.modapps.dev/sitemap.xml
