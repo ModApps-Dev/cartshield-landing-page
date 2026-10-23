@@ -154,25 +154,26 @@
         <a href="#simulator" class="w-full sm:w-auto px-8 py-4 rounded-xl font-bold bg-emerald-600 hover:bg-emerald-500 text-white shadow-xl shadow-emerald-600/30 transition flex items-center justify-center gap-2">
           <span>Test Interactive Rule Simulator</span> &darr;
         </a>
-        <a href="https://youtu.be/G3MmStaDQTo" target="_blank" rel="noreferrer" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 transition flex items-center justify-center gap-2">
-          <span>▶ Watch 28s Walkthrough</span>
+        <a href="#demo-video" class="w-full sm:w-auto px-8 py-4 rounded-xl font-semibold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 transition flex items-center justify-center gap-2">
+          <span>▶ Watch 2-Min Walkthrough</span>
         </a>
       </div>
 
-      <!-- YouTube Video Embed -->
-      <div class="mt-16 max-w-4xl mx-auto rounded-2xl overflow-hidden border border-slate-800 shadow-2xl shadow-emerald-500/10 bg-slate-900/60 p-2 sm:p-4">
-        <div class="relative w-full" style="padding-bottom: 56.25%;">
-          <iframe 
-            class="absolute top-0 left-0 w-full h-full rounded-xl"
-            src="https://www.youtube-nocookie.com/embed/G3MmStaDQTo?rel=0" 
-            title="CartShield: Checkout Rules Walkthrough" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-          </iframe>
+      <!-- Walkthrough Video Embed -->
+      <div id="demo-video" class="mt-16 max-w-4xl mx-auto rounded-2xl overflow-hidden border border-slate-800 shadow-2xl shadow-emerald-500/10 bg-slate-900/60 p-2 sm:p-4">
+        <div class="relative w-full rounded-xl overflow-hidden bg-black">
+          <video 
+            controls 
+            preload="metadata" 
+            poster="assets/feature_graphic_1600x900.jpg"
+            class="w-full h-auto rounded-xl shadow-inner"
+          >
+            <source src="assets/cartshield_demo_walkthrough.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
-        <div class="flex items-center justify-between px-4 py-3 text-xs text-slate-400">
-          <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Official 1080p Walkthrough Video</span>
+        <div class="flex items-center justify-between px-4 py-3 text-xs text-slate-400 mt-1">
+          <span class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Official 1080p Walkthrough with English Voiceover</span>
           <span>⚡ Sub-5ms WebAssembly Engine</span>
         </div>
       </div>
