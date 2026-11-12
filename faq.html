@@ -30,6 +30,79 @@
       }
     }
   </script>
+  <!-- Schema.org FAQPage JSON-LD for AI Search & Search Engine Rich Results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How does CartShield differ from old theme script apps?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Legacy apps injected JavaScript into your theme liquid files or cart drawers. Savvy buyers easily bypassed them via direct /checkout URLs or express buttons like Shop Pay and Apple Pay. CartShield runs 100% on native Shopify Functions directly on Shopify checkout servers (purchase.validation.run). There is zero theme code, zero script tags, and zero possibility of bypassing the validation."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does CartShield affect checkout page speed or Core Web Vitals?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. CartShield compiles to WebAssembly (Wasm) and executes in under 5 milliseconds inside Shopify's global edge sandbox. It executes synchronously during checkout submission without external HTTP API calls, ensuring zero impact on checkout speed or conversion rates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I block PO Boxes and parcel lockers in Shopify checkout?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CartShield scans both address line 1 and address line 2 (apartment/suite) for variations such as P.O. Box, Box, POB, Post Office Box, and parcel lockers. If restricted, it halts checkout and highlights the exact offending address line with an instructive error message."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I block PO Boxes only for specific heavy freight items?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. CartShield allows condition scoping so you can apply PO Box restrictions store-wide or restrict them only when a customer cart contains products from specific collections such as Heavy Freight, Hazardous Materials, or Oversized Goods."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the Add-on Sample Dependency rule?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Many merchants offer low-cost sample kits or promotional add-ons. CartShield checks whether the cart contains required qualifying main products; if not, checkout is blocked with an instructional message to protect shipping margins."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How does B2B / Wholesale Pack Multiple validation work?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can configure case multiples (e.g., multiples of 6, 12, or 24). CartShield validates that item quantities divide evenly by the required multiple; if there is a remainder, it notifies the buyer to adjust their cart before paying."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Is CartShield compatible with non-Shopify Plus stores?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Shopify Checkout Validation Functions run via Checkout Extensibility, available across all modern Shopify checkout plans. CartShield is 100% plug-and-play."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What happens if I uninstall CartShield?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Because CartShield injects zero scripts into your theme, uninstalling leaves zero leftover code. Shopify automatically deactivates the function extension upon uninstall."
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="bg-slate-950 text-slate-200 font-sans antialiased min-h-screen flex flex-col justify-between">
   <!-- Header -->

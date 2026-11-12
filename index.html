@@ -69,6 +69,40 @@
   }
   </script>
 
+  <!-- Schema.org FAQPage for AI Discovery (Perplexity, ChatGPT, Claude) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How to block PO Boxes in Shopify checkout?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CartShield blocks PO Boxes natively using Shopify Functions (WebAssembly). It inspects both Address 1 and Address 2 (suite/apartment line) for variations such as P.O. Box, Box, and parcel lockers, and halts checkout before payment."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does CartShield slow down Shopify checkout speed?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. CartShield runs inside Shopify's global edge sandbox in under 5 milliseconds with zero external HTTP calls and zero theme script tags."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the best alternative to Blockit or AddressFence for Shopify?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "CartShield provides native checkout address validation, isolating address line 2 PO boxes, wholesale case pack multiples, and sample item gating with a free plan included."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Fonts & Tailwind -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
